@@ -1,0 +1,276 @@
+:root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #ff9aa2;
+    --accent-color: #ffb7b2;
+    --background-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --text-color: #4a4a4a;
+    --heading-color: #d6336c;
+    --white: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    background: var(--background-gradient);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: var(--text-color);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    position: relative;
+    padding: 40px;
+    background: var(--glass-bg);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    margin-bottom: 25px;
+    color: var(--heading-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Game Section */
+#game-section {
+    transition: opacity 0.5s ease-out;
+}
+
+canvas {
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid var(--white);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    height: auto;
+    cursor: none;
+}
+
+#score-board {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 15px;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 10px 30px;
+    border-radius: 50px;
+    display: inline-block;
+    color: var(--primary-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.instructions {
+    font-family: 'Nunito', sans-serif;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Proposal Section */
+#proposal-section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease-in;
+    z-index: 10;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#proposal-section.active {
+    display: block !important;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.proposal-text {
+    font-size: 4rem;
+    color: #ff2e63;
+    animation: heartbeat 2s infinite;
+    text-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
+}
+
+.buttons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    position: relative;
+    height: 120px;
+    /* Improved space for interaction */
+}
+
+button {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    padding: 15px 50px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#yes-btn {
+    background: linear-gradient(135deg, #4cd137 0%, #44bd32 100%);
+    color: white;
+}
+
+#yes-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(76, 209, 55, 0.4);
+}
+
+#no-btn {
+    background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+    color: white;
+    position: absolute;
+    /* Changed to relative inside container unless moving */
+    /* z-index: 100; Remove high z-index to avoid it being unreachable if needed, but important for overlap check */
+    /* Actually we want it absolute within the .buttons container initially? No, logic says fixed for movement.
+       Let's keep it consistent: logic handles the movement. Initial CSS can be static/flex item until moved.
+       BUT the previous code had absolute. Let's make it relative initially for layout, then logic makes it fixed.
+    */
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+/* Celebration */
+#celebration {
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 20px;
+    animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    display: inline-block;
+}
+
+#celebration h2 {
+    color: var(--primary-color);
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    margin: 0;
+}
+
+#celebration p {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+/* Animations */
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    14% {
+        transform: scale(1.1);
+    }
+
+    28% {
+        transform: scale(1);
+    }
+
+    42% {
+        transform: scale(1.1);
+    }
+
+    70% {
+        transform: scale(1);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    80% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.confetti {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #f00;
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        width: 95%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .proposal-text {
+        font-size: 2.5rem;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        height: auto;
+        /* Allow auto height for stacking */
+    }
+
+    canvas {
+        border-width: 2px;
+        border-radius: 10px;
+    }
+}
